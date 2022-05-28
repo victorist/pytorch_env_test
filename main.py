@@ -98,7 +98,10 @@ def main():
 
     torch.manual_seed(args.seed)
 
-    device = torch.device("cuda" if use_cuda else "cpu")
+    # device = torch.device("cuda" if use_cuda else "cpu")
+    print("MPS availablity:",torch.backends.mps.is_available())
+    device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
+## and then move your model and data to the device before you train or eval. Have fun folks!
 
     train_kwargs = {'batch_size': args.batch_size}
     test_kwargs = {'batch_size': args.test_batch_size}
